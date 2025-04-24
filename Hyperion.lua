@@ -26,7 +26,7 @@ local function noti(a, b, c)
 end
 
 noti("WARNING", "you need the ArkenStone.", 2)
-noti("WARNING", "this script isnt updated by loadstring.", 2)
+noti("WARNING", "this script is now updated by loadstring.", 2)
 
 
 -- vars here
