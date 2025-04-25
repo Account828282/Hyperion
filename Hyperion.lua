@@ -567,7 +567,7 @@ plrs.PlayerAdded:Connect(function(plr)
 end)
 
 for i = 1, 5 do
-    tab3:CreateInput({
+    tab7:CreateInput({
         Name = "slot",
         PlaceholderText = "TextHere",
         RemoveTextAfterFocusLost = true,
