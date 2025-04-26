@@ -331,7 +331,7 @@ tab2:CreateInput({
     end
 })
 rs.RenderStepped:Connect(function()
-   if workspace:FindFirstChild(localplr.Name) and workspace[localplr.Name]:FindFirstChild("The Arkenstone") and IsReset then
+   if workspace:FindFirstChild(localplr.Name) and workspace:FindFirstChild("The Arkenstone") and workspace["The Arkenstone"]:FindFirstChild("Handle") and IsReset then
       for _ = 1, 5 do
          chat:SendAsync(";reset me HYPERION")
       end
