@@ -3,7 +3,7 @@ local rf = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local win = rf:CreateWindow({
    Name = "HYPERION",
    Icon = 0,
-   LoadingTitle = "version 2.0",
+   LoadingTitle = "version 2.2",
    LoadingSubtitle = "100% skidded",
    Theme = "Default"
 })
@@ -13,6 +13,7 @@ local tab3 = win:CreateTab("spammer", 4483362458)
 local tab7 = win:CreateTab("events", 4483362458)
 local tab8 = win:CreateTab("spy chat", 4483362458)
 local tab4 = win:CreateTab("antis", 4483362458)
+local tab9 = win:CreateTab("search gears", 4483362458)
 local tab5 = win:CreateTab("others", 4483362458)
 local tab6 = win:CreateTab("updates", 4483362458)
 
@@ -26,7 +27,7 @@ local function noti(a, b, c)
 end
 
 noti("WARNING", "you need the ArkenStone.", 2)
-noti("WARNING", "this script is now updated by loadstring.", 2)
+noti("notice!!!", "this script is now auto updated by loadstring!!!!!!", 5)
 
 
 -- vars here
@@ -67,6 +68,10 @@ local spy = {
     blockEnabled = false,
     blocknum = 0,
     blockTable = {}
+}
+local search = {
+    clipboard = true,
+    chat = true
 }
 local OnJoinedB = {"f<〪xลq"}
 --
@@ -129,18 +134,18 @@ tab1:CreateButton({
    Name = "flashbang glitch",
    Callback = function()
       chat:SendAsync(";flashbang")
-      task.wait(3)
+      task.wait(2)
       for _,v in pairs(localplr.Backpack:GetChildren()) do 
          if v.Name=="Flashbang" then
             v.Parent=localplr.Character task.wait(0.1) v:Activate() 
             break 
          end
       end
+      task.wait(2)
       task.spawn(function()
          while not localplr:WaitForChild("PlayerGui"):WaitForChild("GuiMain"):FindFirstChild("FlashBangEffect") do
             task.wait()
          end
-         
          chat:SendAsync(";debug")
       end)
    end
@@ -161,7 +166,7 @@ tab1:CreateToggle({
       lag.istrue = v
       noti("wait a while", "you cannot do cmds while spamming gears on player", 4)
       task.spawn(function()
-         for _ = 1, 300 do
+         for _ = 1, 150 do
             if not lag.istrue then break end
             task.wait(frame + 0.01)
             chat:SendAsync(";gear " .. lag.plrName .. " 18474459")
@@ -170,16 +175,20 @@ tab1:CreateToggle({
             task.wait(frame + 0.001)
             chat:SendAsync(";r6 " .. lag.plrName)
          end
-         task.spawn(function()
-            while lag.istrue do
-               for _, plrs in pairs(plrs:GetPlayers()) do
-                  if plrs ~= localplr and plrs.Character then
-                     plrs.Character:Destroy()
+      end)
+      task.spawn(function()
+         for _, p in ipairs(plrs:GetPlayers()) do
+            if p ~= localplr then
+               local bp = p:FindFirstChild("Backpack")
+               if bp then
+                  for _, t in ipairs(bp:GetChildren()) do
+                     if t.Name == "Advanced Paint Bucket" then
+                        t:Destroy()
+                     end
                   end
                end
-               task.wait(0.5)
             end
-         end)
+         end
       end)
    end
 })
@@ -191,6 +200,25 @@ tab1:CreateInput({
        lag.plrName = v
     end
 })
+tab1:CreateParagraph({
+    Title = "abuse plr",
+    Content = "freezes, jails.. etc"
+})
+
+tab1:CreateInput({
+    Name = "plrName",
+    PlaceholderText = "plrName",
+    RemoveTextAfterFocusLost = true,
+    Callback = function(v)
+       local abuseplr = {"freeze", "jail", "glitch", "mute", "noclip"}
+       for _, val in ipairs(abuseplr) do
+          chat:SendAsync(";" .. val .. " " .. v)
+          task.wait(0.1)
+       end
+    end
+})
+
+
 
 
 
@@ -286,6 +314,8 @@ tab2:CreateToggle({
     end
 })
 tab2:CreateSection("remove enli")
+local Rplr = ""
+local Rtab = {"enlighten", "clearinv","enlighten", "clearinv" , "clearinv", "clearinv", "clearinv" }
 tab2:CreateInput({
     Name = "remove enli (60/40 if exploiter)",
     PlaceholderText = "username",
@@ -293,10 +323,10 @@ tab2:CreateInput({
     Callback = function(v)
        Rplr = v
        task.spawn(function()
-          for i = 1, #Rtab do
-                task.wait(0.02)
-                chat:SendAsync(";" .. Rtab[i] .. " " .. Rplr .. " #HYPERION")
-          end
+         for i, v in ipairs(Rtab) do
+            task.wait(frame)
+            chat:SendAsync(";" .. v .. " " .. Rplr)
+         end
        end)
     end
 })
@@ -304,7 +334,6 @@ rs.RenderStepped:Connect(function()
    if workspace:FindFirstChild(localplr.Name) and workspace[localplr.Name]:FindFirstChild("The Arkenstone") and IsReset then
       for _ = 1, 5 do
          chat:SendAsync(";reset me HYPERION")
-         task.wait(0.1)
       end
    end
 end)
@@ -331,7 +360,7 @@ rs.RenderStepped:Connect(function()
         chat:SendAsync(";debug")
         noti("Auto Debug", "debuged, RcTank", 1)
       end
-      if enli and game:GetService("Workspace"):FindFirstChild("The Arkenstone") and game:GetService("Workspace")["The Arkenstone"]:FindFirstChild("Handle") then
+      if enli and workspace["The Arkenstone"]:FindFirstChild("Handle") then
         chat:SendAsync(";debug")
         noti("Auto Debug", "debuged, The Arkenstone", 1)
       end
@@ -448,7 +477,7 @@ tab4:CreateButton({
           while aflash do
              task.wait(0.1)
              pcall(function()
-                localplr.PlayerGui.GuiMain:FindFirstChild("FlashBangEffect"):Destroy()
+                localplr.PlayerGui.MainGui:FindFirstChild("FlashBangEffect"):Destroy()
              end)
           end
        end)
@@ -520,7 +549,7 @@ tab5:CreateButton({
 
 --[[
 tab6:CreateParagraph({
-    Title = "v 1",
+    Title = "v 2",
    Content = ""
 })
 ]]--
@@ -536,11 +565,16 @@ tab6:CreateParagraph({
     Title = "v 2.0",
    Content = "added : spychat, lag everyone and events. "
 })
-   
+tab6:CreateParagraph({
+    Title = "v 2.2",
+   Content = "added: search, abuse plr. fixed : clear enli"
+})
+
 tab7:CreateParagraph({
     Title = "On Player Join",
     Content = "Executes a command when a player joins. Format: ';[command] PlayerName'"
 })
+
 
  tab7:CreateToggle({
     Name = "toggle",
@@ -601,18 +635,15 @@ tab7:CreateInput({
     Name = "remove keywords",
     PlaceholderText = "no msg = not found",
     RemoveTextAfterFocusLost = false,
-    Callback = function(v)
-       if table.find(OnJoinedB, v:lower()) then
-         for i, val in ipairs(OnJoinedB) do
-            if val == v then
-               table.remove(OnJoinedB, i)
-               noti("removed.", " ", 2)
-               break
-            end
-         end
-      end
+    Callback = function(val)
+       for i, v in ipairs(OnJoinedB) do
+          if string.find(v, val:lower()) then
+             table.remove(OnJoinedB, i)
+             noti("removed", "keyword " .. v, 2)
+             break
+          end
+       end
     end
-
 })
    
 tab7:CreateInput({
@@ -705,3 +736,66 @@ for _, player in ipairs(plrs:GetPlayers()) do
     onChatted(player)
 end
 plrs.PlayerAdded:Connect(onChatted)
+
+-- chat gpt code btw
+local HttpService = game:GetService("HttpService")
+function searchfunc(v)
+    if type(v) ~= "string" then return 0 end
+    local r = http.request({Url="https://catalog.roproxy.com/v1/search/items/details?Category=11&Subcategory=5&Keyword="..HttpService:UrlEncode(v).."&Limit=30",Method="GET"})
+    if not r or r.StatusCode ~= 200 or not r.Body then return 1 end
+    local d = HttpService:JSONDecode(r.Body).data
+    if not d then return 2 end
+    local w = {}; for s in v:lower():gmatch("%S+") do w[#w+1]=s end
+    for _,i in ipairs(d) do
+        local h = ((i.name or "").." "..(i.description or "")):lower()
+        local found = 0
+        for _,s in ipairs(w) do
+            if h:find(s, 1, true) then
+                found = found + 1
+            end
+        end
+        if found >= math.floor(#w * 0.6) then
+            return i.id
+        end
+    end
+    return 3
+end
+-- i did the rest ↓
+tab9:CreateInput({
+    Name = "search gear",
+    PlaceholderText = "input gear name",
+    RemoveTextAfterFocusLost = true,
+    Callback = function(v)
+       noti("searching...", "wait.", 2)
+       iserror, func = pcall(function() return searchfunc(v) end)
+       if func == 0 then
+          noti("searcher", "not a string.", 2)
+       elseif func == 1 then
+       noti("searcher", "HTTP request error!", 2)
+       elseif func == 2 then
+          noti("searcher", "HTTP response invaild or missing!", 2)
+       elseif func == 3 then
+          noti("searcher", "failed to find/:", 2)
+       else
+          if search.clipboard then setclipboard(";gear me " .. func) end
+          if search.chat then chat:SendAsync(";gear me " .. func) end
+          noti("searcher", "done.", 2)
+       end
+    end
+})
+
+tab9:CreateToggle({
+    Name = "setclipboard",
+    CurrentValue = true,
+    Callback = function(v)
+        search.clipboard = v
+    end
+})
+
+tab9:CreateToggle({
+    Name = "chat msg",
+    CurrentValue = true,
+    Callback = function(v)
+        search.chat = v
+    end
+})
