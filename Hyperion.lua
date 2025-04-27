@@ -330,10 +330,10 @@ tab2:CreateInput({
        end)
     end
 })
-rs.RenderStepped:Connect(function()
-   if workspace:FindFirstChild(localplr.Name) and workspace:FindFirstChild("The Arkenstone") and workspace["The Arkenstone"]:FindFirstChild("Handle") and IsReset then
-      for _ = 1, 5 do
+if game:GetService("Workspace"):FindFirstChild("The Arkenstone") and game:GetService("Workspace"):FindFirstChild("The Arkenstone"):FindFirstChild("Handle") then
+      for _ = 1, 3 do
          chat:SendAsync(";reset me HYPERION")
+         task.wait(frame)
       end
    end
 end)
