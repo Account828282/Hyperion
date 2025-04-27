@@ -80,8 +80,18 @@ rs.RenderStepped:Connect(function(v)
 end)
 
 if not (game.PlaceId == 11137575513 or game.PlaceId == 12943247001 or game.PlaceId == 12943245078) then
-   localplr:Kick("Invalid game")
+   noti("invaild game", "if you get banned for spam it is not my fault.", 10)
 end
+
+task.spawn(function()
+   for _, plr in pairs(plrs:GetPlayers()) do
+      if plr.Name == "A_A1useHyperionFr" and plr.Name ~= localplr then
+            noti("owner of hyp found!", "sup.", 2)
+            break
+      end
+   end
+end)
+
 tab1:CreateParagraph({
     Title = "Server abuser (info)",
     Content = "you need The ArkenStone for this, removed lag server because it is not effective."
