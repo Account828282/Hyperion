@@ -324,17 +324,16 @@ tab2:CreateToggle({
     end
 })
 tab2:CreateSection("remove enli")
-local Rplr = ""
 local Rtab = {"enlighten", "clearinv","enlighten", "clearinv" , "clearinv", "clearinv", "clearinv" }
 tab2:CreateInput({
     Name = "remove enli (60/40 if exploiter)",
     PlaceholderText = "username",
     RemoveTextAfterFocusLost = true,
-    Callback = function(v)
-       Rplr = v
+    Callback = function(Rplr)
+      
        task.spawn(function()
          for i, v in ipairs(Rtab) do
-            task.wait(frame)
+            task.wait(frame + 0.05)
             chat:SendAsync(";" .. v .. " " .. Rplr)
          end
        end)
