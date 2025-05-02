@@ -1,9 +1,20 @@
+--[[ HYPERION INFO
+hyperion is open source.
+only share invite link is not.
+please add credits to user_ in scriptblox.
+
+msg from dev
+hyperion is "skidded" by a bit on some of the code
+as i am only a newbie in lua. kindly respect me
+if you hate this script just leave, it will not affect you.
+]]--
+
 
 local rf = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local win = rf:CreateWindow({
    Name = "HYPERION",
    Icon = 0,
-   LoadingTitle = "version 2.2",
+   LoadingTitle = "version 2.5",
    LoadingSubtitle = "100% skidded",
    Theme = "Default"
 })
@@ -73,6 +84,11 @@ local search = {
     chat = true
 }
 local OnJoinedB = {"f<〪xลq"}
+local aura = {
+    istrue = false,
+    build = false,
+    delete = false
+}
 
 rs.RenderStepped:Connect(function(v)
    frame = v
@@ -104,7 +120,7 @@ tab1:CreateToggle({
        if sa then
           for i = 1, #cmdsOnce do
              task.wait(0.05)
-             chat:SendAsync(cmdsOnce[i] ..  " HPERION")
+             chat:SendAsync(cmdsOnce[i] .. " HPERION")
           end
           task.spawn(function()
              while sa do
@@ -186,6 +202,7 @@ tab1:CreateToggle({
          end
       end)
       task.spawn(function()
+         while lag.istrue do
          for _, p in ipairs(plrs:GetPlayers()) do
             if p ~= localplr then
                local bp = p:FindFirstChild("Backpack")
@@ -197,6 +214,8 @@ tab1:CreateToggle({
                   end
                end
             end
+         end
+            task.wait(0.1)
          end
       end)
    end
@@ -222,15 +241,64 @@ tab1:CreateInput({
        local abuseplr = {"freeze", "jail", "glitch", "mute", "noclip"}
        for _, val in ipairs(abuseplr) do
           chat:SendAsync(";" .. val .. " " .. v)
-          task.wait(0.1 + frame)
+          task.wait(0.2 + frame)
        end
     end
 })
+tab1:CreateParagraph({
+    Title = "auto greif (info)",
+    Content = "teleports under a player (5 studs under) and greifs (delete, build or both)"
+})
+tab1:CreateToggle({
+    Name = "auto greif [beta]",
+    CurrentValue = false,
+    Callback = function(v)
+        aura.istrue = v
+       local delete = localplr.Backpack:FindFirstChild("Delete")
+       local build = localplr.Backpack:FindFirstChild("Build")
+       task.spawn(function()
+        while aura.build and aura.istrue do
+            build.Script.Event:FireServer(
+            workspace.Terrain,
+            Enum.NormalId.Top,
+            localplr.Character.HumanoidRootPart.Position + Vector3.new(math.random(-10, 10), math.random(-10, 10), math.random(-10, 10)),
+            "normal")
+            task.wait(frame)
+            end
+        end)
+       task.spawn(function()
+          while aura.istrue do
+             for _, plr in ipairs(plrs:GetPlayers()) do
+                for _, part in ipairs(localplr.Character:GetChildren()) do
+                   if part:IsA("BasePart") then
+                      game:GetService("TweenService"):Create(part, TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+                         CFrame = plr.Character.HumanoidRootPart.CFrame * CFrame.new(0, -6, 0)
+                      }):Play()
+                   end
+                end
+                localplr.Character.HumanoidRootPart.Anchored = true
+                task.wait(3)
+                localplr.Character.HumanoidRootPart.Anchored = false
+             end
+          end
+       end)
+    end
+})
+tab1:CreateToggle({
+    Name = "build aura",
+    CurrentValue = false,
+    Callback = function(v)
+       aura.delete = v
+    end
+})
 
-
-
-
-
+tab1:CreateButton({
+   Name = "share invite link to discord",
+   Callback = function()
+      noti("you can only do this every 10 mins, dont spam")
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Account828282/Hyperion/main/protected1.lua"))()
+   end
+})
 tab2:CreateSection("Whitelist")
 tab2:CreateParagraph({
     Title = "whitelist (info)",
@@ -368,7 +436,7 @@ rs.RenderStepped:Connect(function()
         chat:SendAsync(";debug")
         noti("Auto Debug", "debuged, RcTank", 1)
       end
-      if enli and game:GetService("Workspace"):FindFirstChild("The Arkenstone") and game:GetService("Workspace")["The Arkenstone"]:FindFirstChild("Handle") then
+      if enli and workspace:FindFirstChild("The Arkenstone") and workspace["The Arkenstone"]:FindFirstChild("Handle") then
         chat:SendAsync(";debug")
         noti("Auto Debug", "debuged, The Arkenstone", 1)
       end
@@ -577,6 +645,10 @@ tab6:CreateParagraph({
     Title = "v 2.2",
    Content = "added: search, abuse plr. fixed : clear enli"
 })
+tab6:CreateParagraph({
+    Title = "v 2.3",
+   Content = "added share server and auto greif."
+})
 
 tab7:CreateParagraph({
     Title = "On Player Join",
@@ -763,8 +835,11 @@ function searchfunc(v)
                 found = found + 1
             end
         end
+       
         if found >= math.floor(#w * 0.6) then
-            return i.id
+            return i.id .. "`" .. 5 .. "`" .. math.floor(#w * 0.6)
+        elseif found >= math.floor(#w * 0.1) then
+           return i.id .. "`" .. 4 .. "`" .. math.floor(#w * 0.1)
         end
     end
     return 3
@@ -785,8 +860,11 @@ tab9:CreateInput({
        elseif func == 3 then
           noti("searcher", "failed to find/:", 2)
        else
-          if search.clipboard then setclipboard(";gear me " .. func) end
-          if search.chat then chat:SendAsync(";gear me " .. func) end
+          val = string.split(func, "`")
+          if val[2] == 5 then noti("searcher", "over 60% match\n match %" .. val[3], 2) end
+          if val[2] == 4 then noti("searcher", "less than 60% match\n match %" .. val[3], 2) end
+          if search.clipboard then setclipboard(";gear me " .. val[1]) end
+          if search.chat then chat:SendAsync(";gear me " .. val[1]) end
           noti("searcher", "done.", 2)
        end
     end
