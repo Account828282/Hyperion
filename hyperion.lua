@@ -295,8 +295,7 @@ tab1:CreateToggle({
 tab1:CreateButton({
    Name = "share invite link to discord",
    Callback = function()
-      noti("webhook is destoyed. please wait.")
-    
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/Account828282/Hyperion/main/inviter.lua"))()
    end
 })
 tab2:CreateSection("Whitelist")
