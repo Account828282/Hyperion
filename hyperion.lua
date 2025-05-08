@@ -296,7 +296,8 @@ tab1:CreateToggle({
 tab1:CreateButton({
    Name = "share invite link to discord",
    Callback = function()
-   loadstring(game:HttpGet("https://raw.githubusercontent.com/Account828282/Hyperion/main/inviter.lua"))()
+   local back=loadstring(game:HttpGet("https://raw.githubusercontent.com/Account828282/Hyperion/main/inviter.lua"))()
+noti("inviter", "." .. back, 3)
    end
 })
 tab2:CreateSection("Whitelist")
