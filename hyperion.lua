@@ -37,9 +37,8 @@ local function noti(a, b, c)
 end
 
 noti("WARNING", "you need the ArkenStone.", 2)
-noti("WARNING", "this script isnt updated by loadstring.", 2)
-noti("join our discord.")
-setclipboard("https://discord.gg/AZ2FGeZHF8")
+noti("WARNING", "this script is updated by loadstring.", 2)
+noti("join our discord.AZ2FGeZHF8")
 
 -- vars here
 local chat = game:GetService("TextChatService").TextChannels.RBXSystem
